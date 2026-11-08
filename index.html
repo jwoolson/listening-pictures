@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Google Analytics preconnect/prefectch defers GA4 gtag.js loading until first user interaction -->
+	<link rel="preconnect" href="https://www.googletagmanager.com">
+	<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+	<!-- LISTENING.PICTURES - WEBSITE VERSION: 2026-10-06_v002.08 -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Listening.Pictures - Documentary films about ecology, by Jonathan H. Woolson</title>
+  <meta name="description" content="Listening.Pictures produces documentary films about ecology, recovery, and balance. Fredonia, New York. Water is life. All water is connected. We are water.">
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+	<!-- LLMs.txt file intended for agentic browsing -->
+  <link rel="describedby" href="https://listening.pictures/llms.txt">
+
+	<!-- Social media cards for link previews -->
+  <meta property="og:title" content="Listening.Pictures">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="Producing documentary films about ecology, recovery, and balance.">
+  <meta property="og:image" content="https://listening.pictures/web-thumbnail-4.png">
+  <link rel="canonical" href="https://listening.pictures/">
+  <meta property="og:url" content="https://listening.pictures">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Listening.Pictures">
+  <meta name="twitter:description" content="Producing documentary films about ecology, recovery, and balance.">
+  <meta name="twitter:image" content="https://listening.pictures/web-thumbnail-4.png">
+
+  <!-- Wistia loads after the page does, so a DNS lookup is all it needs up
+       front; a preconnect would sit idle while the page renders. -->
+  <link rel="dns-prefetch" href="https://fast.wistia.com">
+  <link rel="preload" as="image" href="/reel-poster.webp" type="image/webp" fetchpriority="high"
+        imagesrcset="/reel-poster-640.webp 640w, /reel-poster-960.webp 960w, /reel-poster.webp 1280w"
+        imagesizes="100vw">
+  <link rel="preload" as="font" href="/fonts/spectral-light-latin.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="/fonts/spectral-light-italic-latin.woff2" type="font/woff2" crossorigin>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* Self-hosted Spectral, Latin subset. The page sets serif type only at
+       300, upright and italic, so those are the only two faces shipped. */
+    @font-face {
+      font-family: "Spectral"; font-style: normal; font-weight: 300;
+      font-display: swap;
+      src: url("/fonts/spectral-light-latin.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Spectral"; font-style: italic; font-weight: 300;
+      font-display: swap;
+      src: url("/fonts/spectral-light-italic-latin.woff2") format("woff2");
+    }
+
+    :root {
+      /* Dusk into deep water — the gradient the films keep looking at.
+         --brand is the company's registered primary, #3954a5, which the
+         previous stylesheet never actually used. --brand-deep is that same
+         hue at 72%: the gradient's brightest point sits behind the smallest
+         text, and at full strength #3954a5 drops --text-dim to 3.2:1. The
+         deepened tone carries every text colour past 4.5:1. */
+      --sky-high:   #1b0f38;
+      --sky-low:    #26356f;
+      --brand:      #3954a5;
+      --brand-deep: #293c77;
+      --water:      #071f3d;
+
+      --text:      #f4f6fb;
+      --text-soft: #ccd6ec;
+      --text-dim:  #9fb0d2;
+      --line:      rgba(255, 255, 255, 0.30);
+      --link:      #a8d4f0;
+
+      --serif: "Spectral", Iowan Old Style, Palatino, "Palatino Linotype",
+               Georgia, "Times New Roman", serif;
+      --sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+
+      --measure: 34rem;
+    }
+
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    body {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(1rem, .55vw + .88rem, 1.125rem);
+      line-height: 1.9;
+      color: var(--text);
+      background: var(--water);
+      min-height: 100vh;
+      /* A column, so main can grow and the pond sits on the bottom edge of
+         the window even when the content is shorter than the screen. */
+      display: flex; flex-direction: column;
+    }
+
+    /* A fixed backdrop rather than a background on <body>: it never stretches
+       or tiles as the page grows, and it sidesteps the iOS
+       background-attachment bugs that the alternative brings. */
+    .sky {
+      position: fixed; inset: 0; z-index: -1;
+      background: linear-gradient(180deg,
+        var(--sky-high) 0%, var(--sky-low) 34%,
+        var(--brand-deep) 58%, var(--water) 100%);
+    }
+
+    ::selection { background: var(--link); color: var(--brand); }
+
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: .25em;
+              text-decoration-thickness: 1px; }
+    a:focus-visible { outline: 2px solid var(--link); outline-offset: 4px;
+                      border-radius: 2px; }
+
+    .skip {
+      position: absolute; top: -4rem; left: 1rem; z-index: 10;
+      background: var(--link); color: var(--water);
+      padding: .6rem 1rem; border-radius: 3px;
+      font-family: var(--sans); font-size: .85rem; font-weight: 600;
+      transition: top .2s;
+    }
+    .skip:focus { top: 1rem; text-decoration: none; }
+
+    /* ——— the film at the top ——— */
+
+    .reel { position: relative; width: 100%; }
+    .reel::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 30%;
+      background: linear-gradient(to bottom, transparent, var(--sky-high));
+      pointer-events: none;
+    }
+    .wistia_responsive_padding { padding: 31.5% 0 0 0; position: relative; }
+    .wistia_responsive_wrapper {
+      height: 100%; left: 0; position: absolute; top: 0; width: 100%;
+    }
+    /* The film's first frame, shown until the player loads over it. It sits
+       earlier in the DOM than the wrapper, so the player paints on top. */
+    .reel-poster {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* ——— page ——— */
+
+    main {
+      width: 100%; flex: 1 0 auto;
+      max-width: var(--measure);
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+      text-align: center;
+    }
+
+    .masthead { padding-top: 2.5rem; }
+
+    .mark {
+      display: block; width: clamp(7rem, 22vw, 9.5rem); height: auto;
+      margin: 0 auto 2rem;
+    }
+
+    h1 {
+      font-weight: 300;
+      font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      line-height: 1.5;
+      /* tracking leaves a trailing gap; nudge the line back to true centre */
+      text-indent: .22em;
+    }
+
+    .tagline {
+      margin-top: 1.25rem;
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.4vw, 1.65rem);
+      line-height: 1.6;
+      color: var(--text-soft);
+      text-wrap: balance;
+    }
+
+    /* ——— the wave rule, taken straight from the logo mark ——— */
+
+    .wave {
+      display: block; width: min(15rem, 62%); height: .75rem;
+      margin: 3.25rem auto; color: var(--line);
+    }
+
+    /* ——— the work ——— */
+
+    .work p { color: var(--text-soft); text-wrap: pretty; }
+
+    .watch {
+      display: inline-block; margin-top: 1.5rem;
+      font-family: var(--sans); font-size: .82rem; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: .7rem 1.4rem;
+      border: 1px solid var(--line); border-radius: 999px;
+      color: var(--text);
+      transition: border-color .25s, background-color .25s, color .25s;
+    }
+    .watch:hover {
+      text-decoration: none;
+      border-color: var(--link); color: var(--link);
+      background: rgba(168, 212, 240, .08);
+    }
+    .watch .arrow { display: inline-block; transition: transform .25s; }
+    .watch:hover .arrow { transform: translateX(.2em); }
+
+    /* ——— elsewhere ——— */
+
+    .elsewhere ul {
+      list-style: none;
+      display: flex; flex-wrap: wrap;
+      justify-content: center; align-items: center;
+      gap: 1.25rem 1.75rem;
+    }
+    .elsewhere a {
+      display: flex; flex-direction: column; align-items: center; gap: .6rem;
+      font-family: var(--sans); font-size: .72rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase; line-height: 1;
+      color: var(--text-dim);
+      transition: color .25s;
+    }
+    /* The icons are white; opacity dims them to sit with --text-dim and
+       lifts them to full white alongside the label on hover. */
+    .elsewhere img {
+      height: 2rem; width: auto;
+      opacity: .7; transition: opacity .25s;
+    }
+    .elsewhere a:hover { color: var(--text); text-decoration: none; }
+    .elsewhere a:hover img { opacity: 1; }
+
+    /* ——— contact ——— */
+
+    address {
+      margin-top: 2.25rem;
+      font-family: var(--sans); font-style: normal;
+      font-size: .9rem; line-height: 2; letter-spacing: .02em;
+      color: var(--text-dim);
+    }
+    address a { color: var(--text-dim); }
+    address a:hover { color: var(--text); }
+
+    /* ——— closing ——— */
+
+    .invocation {
+      font-style: italic;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 2;
+      letter-spacing: .01em;
+      color: var(--text);
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-family: var(--sans); font-size: .72rem; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-dim);
+    }
+
+    /* ——— the pond, along the bottom ——— */
+
+    /* The fade lives in the image's own alpha, hand-cut so the lily's petal
+       tips stay crisp while the pond around them dissolves into the page.
+       So no CSS mask, and no cover-cropping: the photo is shown whole, at
+       its natural proportions, and its alpha is encoded losslessly. */
+    .pond img { display: block; width: 100%; height: auto; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+
+    @media print {
+      .sky, .reel, .skip, .watch, .pond { display: none; }
+      body { color: #111; background: #fff; }
+      a { color: #111; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="reel">
+    <div class="wistia_responsive_padding">
+      <img class="reel-poster" src="/reel-poster.webp" width="1280" height="400"
+           srcset="/reel-poster-640.webp 640w, /reel-poster-960.webp 960w, /reel-poster.webp 1280w"
+           sizes="100vw"
+           alt="" fetchpriority="high">
+      <div class="wistia_responsive_wrapper">
+        <div class="wistia_embed wistia_async_c5vm729rkt videoFoam=true"
+             style="height:100%;width:100%">&nbsp;</div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <div class="masthead">
+      <a href="/" aria-label="Listening Pictures, home">
+        <img class="mark" src="/listeningpictures-logo-white-v01-320.webp"
+             width="320" height="320"
+             alt="Listening Pictures mark: waves within a circle">
+      </a>
+      <h1>Listening &middot; Pictures</h1>
+      <p class="tagline">Producing documentary films about ecology,
+        recovery, and&nbsp;balance.</p>
+    </div>
+
+    <svg class="wave" viewBox="0 0 240 12" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 6 Q 15 1, 30 6 T 60 6 T 90 6 T 120 6 T 150 6 T 180 6 T 210 6 T 240 6"
+            fill="none" stroke="currentColor" stroke-width="1"
+            vector-effect="non-scaling-stroke"/>
+    </svg>
+
+    <section class="work">
+      <p>A running series of short films&thinsp;&mdash;&thinsp;most of them under
+        a minute. Sunrise, weather, moving water; mostly around Fredonia and the
+        Lake&nbsp;Erie shore.</p>
+      <a class="watch" href="https://vimeo.com/listeningpix">
+        Watch on Vimeo <span class="arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </section>
+
+    <svg class="wave" viewBox="0 0 240 12" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 6 Q 15 1, 30 6 T 60 6 T 90 6 T 120 6 T 150 6 T 180 6 T 210 6 T 240 6"
+            fill="none" stroke="currentColor" stroke-width="1"
+            vector-effect="non-scaling-stroke"/>
+    </svg>
+
+    <nav class="elsewhere" aria-label="Listening Pictures elsewhere">
+      <ul>
+        <li><a href="https://vimeo.com/listeningpix"><img src="/social/vimeo.png" alt="" width="100" height="100">Vimeo</a></li>
+        <li><a href="/youtube"><img src="/social/youtube.png" alt="" width="100" height="99">YouTube</a></li>
+        <li><a href="https://www.instagram.com/listeningpix"><img src="/social/instagram.png" alt="" width="100" height="100">Instagram</a></li>
+        <li><a href="https://www.patreon.com/listeningpix"><img src="/social/patreon.png" alt="" width="100" height="105">Patreon</a></li>
+<!--         <li><a href="https://www.twitch.tv/listeningpix"><img src="/social/twitchtv.png" alt="" width="100" height="105">Twitch</a></li> -->
+      </ul>
+    </nav>
+
+    <address>
+      <strong>Listening.Pictures</strong><br />      
+      Fredonia, New York 14063<br>
+      <a href="tel:+17166729777" title="Call Listening Pictures at 716-672-9777">716-672-9777</a>
+      &ensp;&middot;&ensp;
+      <a href="mailto:hello@listening.pictures">hello@listening.pictures</a><br />
+      786B 6364 2E63 6F6D 2F38 3633<br />
+      &copy; 2026 <a href="https://jwoolson.com" target="_blank" rel="noopener noreferrer" class="org-link">Jonathan H. Woolson</a>
+
+    </address>
+        
+
+    <svg class="wave" viewBox="0 0 240 12" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 6 Q 15 1, 30 6 T 60 6 T 90 6 T 120 6 T 150 6 T 180 6 T 210 6 T 240 6"
+            fill="none" stroke="currentColor" stroke-width="1"
+            vector-effect="non-scaling-stroke"/>
+    </svg>
+
+    <p class="invocation">Water is life.<br>
+      All water is connected.<br>
+      We are water.</p>
+
+
+
+  </main>
+
+  <div class="pond" aria-hidden="true">
+    <img src="/lily-pond-v5-1400.webp"
+         srcset="/lily-pond-v5-800.webp 800w, /lily-pond-v5-1400.webp 1400w, /lily-pond-v5-2000.webp 2000w"
+         sizes="100vw" width="2000" height="867"
+         alt="" loading="lazy" decoding="async">
+  </div>
+
+  <script>
+    // The Wistia player waits until the page has loaded, then until the
+    // browser is idle. Loaded eagerly, its ~1.2s of script and ~8MB of video
+    // segments competed with the first paint on slow connections.
+    window.addEventListener('load', function () {
+      var later = window.requestIdleCallback || function (fn) { setTimeout(fn, 1); };
+      later(function () {
+        ['https://fast.wistia.com/embed/medias/c5vm729rkt.jsonp',
+         'https://fast.wistia.com/assets/external/E-v1.js'].forEach(function (src) {
+          var s = document.createElement('script');
+          s.src = src; s.async = true;
+          document.head.appendChild(s);
+        });
+      });
+    });
+  </script>
+
+	<!-- Google tag (gtag.js) Interaction-Based Lazy Load - Using listening.pictures G-WPLEJ5J0BK -->
+	<script>
+		// 1. Initialize dataLayer immediately so code doesn't break
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-WPLEJ5J0BK');
+
+		// 2. Set up the lazy loader
+		(function() {
+			let scriptLoaded = false;
+
+			function loadGtag() {
+				if (scriptLoaded) return;
+				scriptLoaded = true;
+
+				// Inject the script element
+				var gaScript = document.createElement('script');
+				gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-WPLEJ5J0BK';
+				document.body.appendChild(gaScript);
+
+				// Clean up all event listeners once fired
+				triggerEvents.forEach(event => window.removeEventListener(event, loadGtag));
+			}
+
+			// Listen for standard human interaction signals
+			const triggerEvents = ['touchstart', 'scroll', 'mousemove', 'keydown'];
+			triggerEvents.forEach(event => window.addEventListener(event, loadGtag, { passive: true }));
+		})();
+	</script>
+</body>
+</html>

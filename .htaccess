@@ -1,0 +1,40 @@
+Options -Indexes
+
+# Declare UTF-8 for text/plain (llms.txt, robots.txt) and text/html responses
+AddDefaultCharset UTF-8
+
+# Remove www.
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.listening\.pictures$ [NC]
+RewriteRule (.*) https://listening.pictures/$1 [R=301,L]
+
+# Cache lifetimes: lift DreamHost's 2-day default on these types
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp                "access plus 30 days"
+  ExpiresByType image/avif                "access plus 30 days"
+  ExpiresByType image/x-icon              "access plus 30 days"
+  ExpiresByType image/vnd.microsoft.icon  "access plus 30 days"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType font/woff                 "access plus 1 year"
+</IfModule>
+
+# HTML: revalidate on every load so a fresh upload shows on the next reload
+# (DreamHost otherwise serves max-age=600). Images/icons/fonts keep the lifetimes above.
+<IfModule mod_headers.c>
+  <FilesMatch "\.html?$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+
+Redirect permanent /about https://jwoolson.com
+
+Redirect permanent /about/resume https://jwoolson.com
+
+
+Redirect permanent /youtube https://www.youtube.com/channel/UCgSC8LYeUIwVyzDZxKCy07Q
+
+Redirect permanent /drive https://drive.google.com/drive/folders/1vABJ4xOY1B79iE8Py1MaxLsSzP73miG1
+
+Redirect permanent /project/adk https://docs.google.com/document/d/e/2PACX-1vQcv2Xb2mPFzpKlSL25c-sA2f6RVNJWt65jqyI48w8neKHsvHHP_TdmKk9aQkOcasUW5tPjsy-iBK4V/pub
