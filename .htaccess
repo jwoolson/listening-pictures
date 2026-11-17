@@ -27,11 +27,9 @@ RewriteRule (.*) https://listening.pictures/$1 [R=301,L]
   </FilesMatch>
 </IfModule>
 
-
 Redirect permanent /about https://jwoolson.com
 
 Redirect permanent /about/resume https://jwoolson.com
-
 
 Redirect permanent /youtube https://www.youtube.com/channel/UCgSC8LYeUIwVyzDZxKCy07Q
 
